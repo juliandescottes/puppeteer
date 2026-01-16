@@ -151,17 +151,16 @@ async function main() {
 
       // Add more logging when the GitHub Action Debugging option is set
       // https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables
-      const githubActionDebugging = process.env['RUNNER_DEBUG']
-        ? {
-            DEBUG: 'puppeteer:*',
-            EXTRA_LAUNCH_OPTIONS: JSON.stringify({
-              dumpio: true,
-              extraPrefsFirefox: {
-                'remote.log.level': 'Trace',
-              },
-            }),
-          }
-        : {};
+      const githubActionDebugging = {
+        DEBUG: 'puppeteer:*',
+        EXTRA_LAUNCH_OPTIONS: JSON.stringify({
+          dumpio: true,
+          extraPrefsFirefox: {
+            'remote.log.level': 'Trace',
+            'security.sandbox.content.level': 0,
+          },
+        }),
+      };
 
       const env = extendProcessEnv([
         ...parameters.map(param => {
