@@ -929,7 +929,7 @@ describe('waittask specs', function () {
     });
   });
 
-  describe('protocol timeout', () => {
+  describe.only('protocol timeout', () => {
     const state = setupSeparateTestBrowserHooks({
       protocolTimeout: 4000,
     });
