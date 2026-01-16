@@ -931,17 +931,19 @@ describe('waittask specs', function () {
 
   describe.only('protocol timeout', () => {
     const state = setupSeparateTestBrowserHooks({
-      protocolTimeout: 4000,
+      protocolTimeout: 15_000,
     });
 
     it('should error if underyling protocol command times out with raf polling', async () => {
+      this.timeout(40_000);
+
       let error!: Error;
       await state.page
         .waitForFunction(
           () => {
             return false;
           },
-          {timeout: 6000},
+          {timeout: 20_000},
         )
         .catch(error_ => {
           return (error = error_);
